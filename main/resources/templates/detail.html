@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p {
+            margin-left: 30px;
+            margin-bottom: 14px;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+  <table>
+      <tr>
+          <td><h4>ID: </h4></td>
+          <td><h4 th:text="${id}">[[${stdID}]]</h4></td>
+      </tr>
+      <tr>
+          <td><h4>Name: </h4></td>
+          <td><h4 th:text="${name}">[[${name}]]</h4></td>
+      </tr>
+      <tr>
+          <td><h4>Age: </h4></td>
+          <td><h4 th:text="${age}">[[${age}]]</h4></td>
+      </tr>
+      <tr>
+          <td><h4>Address: </h4></td>
+          <td><h4 th:text="${address}">[[${address}]]</h4></td>
+      </tr>
+      <tr>
+          <td><h4 style="margin-bottom: 10px">Class: </h4></td>
+      </tr>
+  </table>
+      <p>Class-ID: [[${classID}]]</p>
+
+      <p>Class-Name: [[${className}]]</p>
+
+      <p>Teacher: [[${teacher}]]</p>
+
+      <p>Gradle: [[${grable}]]</p>
+
+    <table>
+        <tr>
+            <h4>Subject:</h4>
+        </tr>
+    </table>
+      <p>subjectId: [[${subjectId}]]</p>
+
+      <p>name: [[${SubName}]]</p>
+
+      <p>tinChi: [[${tinChi}]]</p>
+
+  <div th:each="s : ${subjects}">
+      subjectID:
+      <p th:utext="${s.subjectId}">..</p>
+      Name:
+      <p th:utext="${s.name}">..</p>
+      tinChi:
+      <p th:utext="${s.tinChi}">..</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    <link rel="stylesheet" type="text/css" th:href="@{main.css}">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        h1{
+            color: red;
+        }
+        .search {
+            width: 100%;
+            padding-left: 50px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        .search div {
+            width: 33.3%;
+        }
+        .search span {
+            margin-right: 10px;
+        }
+        .search input {
+            padding: 1px 0px;
+            margin-right: 80px;
+            border-radius: 3px;
+        }
+        .search .search_submit {
+            padding: 5px 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            background: #d0bcbc;
+            border-radius: 6px;
+            border: none;
+            margin-left: 365px;
+            cursor: pointer;
+        }
+        .search .search_submit:hover {
+            background: #b9a0a0;
+        }
+
+        .info {
+            margin-top: 50px;
+        }
+
+        .info table {
+            margin: auto;
+        }
+
+        .info thead th,
+        .info tbody td
+        {
+            padding: 2px 10px ;
+        }
+
+        .info thead a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+        }
+
+        .info tbody td:first-child{
+            text-align: center;
+        }
+
+        .info tbody td:not(:first-child){
+            text-align: end;
+        }
+
+        tbody td a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .footer a,
+        .footer .footer_currentPage {
+            text-decoration: none;
+            font-size: 19px;
+            color: #000;
+            background: #ccc;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-right: 4px;
+        }
+
+        .footer a:active {
+            background: #5454ec;
+        }
+
+        .footer .footer_currentPage {
+            background: #b24e4e;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+<!--    <h1>STRATED</h1>-->
+    <div class="search row">
+        <form th:action="@{/page/1}" >
+            <input type="hidden" name="sortField" th:value="${sortField}">
+            <input type="hidden" name="sortDir" th:value="${sortDir}">
+            <label >Address</label>
+            <input type="text" name="address" th:value="${address}">
+
+            <label>Age</label>
+            <input type="text" name="age" th:value="${age}">
+
+            <label>Name</label>
+            <input type="text" name="name" th:value="${name}    "><br>
+<!--            <button>Tìm kiếm</button>-->
+            <input class="search_submit" type="submit" value="Tìm kiếm">
+        </form>
+    </div>
+
+    <div class="info">
+        <table class="if_table" style=" border-collapse: collapse; border-radius: 5px" width="450px";; border="1" align="center" cellpadding="4px">
+            <thead>
+            <tr>
+                <th>
+                    <span>
+                        <i class="fa-solid fa-thumbs-down"></i>
+                        <i class="fa-solid fa-caret-down"></i>
+                        <i class="fa-solid fa-caret-down"></i>
+                    </span>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=studentId&sortDir=' + ${reverseSortDir} + '&address=' + ${address} + '&age=' + ${age} + '&name=' +${name}}  ">ID</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=address&sortDir=' + ${reverseSortDir} + '&address=' + ${address} + '&age=' + ${age} + '&name=' +${name}}">Address</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=age&sortDir=' + ${reverseSortDir} + '&address=' + ${address} + '&age=' + ${age} + '&name=' +${name}}">Age</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=studentName&sortDir=' + ${reverseSortDir} + '&address=' + ${address} + '&age=' + ${age} + '&name=' +${name}}">Name</a>
+                </th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td>
+                    <a th:href="@{'/student/' + ${student.studentId} +'/detail'}" th:text="${student.studentId}"></a>
+<!--                    <a th:href="@{'/studentdetai&id=' + ${id}}" th:text="${student.studentId}"></a>-->
+
+                </td>
+                <td th:text="${student.address} "></td>
+                <td th:text="${student.age}"></td>
+                <td th:text="${student.studentName}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+            <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${address != null ? '&address=' + address : ''} + ${age != null ? '&age=' + age : ''} + ${name != null ? '&name=' + name : ''}}">[[${i}]]</a>
+            <span th:unless="${currentPage != i}" class="footer_currentPage">[[${i}]]</span>
+        </span>
+    </div>
+
+</body>
+</html>
